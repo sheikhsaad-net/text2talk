@@ -19,3 +19,11 @@ This application converts text into audio using Google's Cloud Text-to-Speech AP
 ### 1. Clone the repository
 
 First, clone the repository to your local machine:
+
+git clone [https://github.com/sheikhsaad-net/text2talk.git](https://github.com/sheikhsaad-net/text2talk.git) cd text2talk
+
+### 2. Install dependencies
+
+Run the following command to install the required dependencies: npm install
+
+
