@@ -20,11 +20,11 @@ This application converts text into audio using Google's Cloud Text-to-Speech AP
 
 First, clone the repository to your local machine:
 
-git clone [https://github.com/sheikhsaad-net/text2talk.git](https://github.com/sheikhsaad-net/text2talk.git) cd text2talk
+git clone [https://github.com/sheikhsaad-net/text2talk.git](https://github.com/sheikhsaad-net/text2talk.git) `cd text2talk`
 
 ### 2. Install dependencies
 
-Run the following command to install the required dependencies: npm install
+Run the following command to install the required dependencies: `npm install`
 
 
 ### 3. Set up Google Cloud API credentials
@@ -38,8 +38,27 @@ To authenticate with Google Cloud's Text-to-Speech API, follow these steps:
    - Navigate to **IAM & Admin** > **Service Accounts**.
    - Create a service account and download the JSON credentials file.
 5. Place the downloaded JSON credentials file in the `auth` folder in the `public` directory of the project.
-6. In the `auth` folder, open the `credentials.json` file and update the following fields with the data from your Google Cloud service account:
+6. In the `auth` folder, open the `credentials.json` file and update the following fields with the data from your Google Cloud service account: { "private_key_id": "", "private_key": "", "client_email": "", "client_id": "" }
 
-{ "private_key_id": "", "private_key": "", "client_email": "", "client_id": "" }
+### 4. Start the application
+
+To run the application locally, use the following command: `npm run dev`
+
+This will start both the backend server and the frontend application.
+
+### 5. Send text for speech synthesis
+
+Once the server is running, you can send text to the backend to generate audio. Use the following URL to send a POST request with the text you want to convert to speech:
+
+POST http://localhost:3000/speak
+
+Send a JSON object with the text you want to convert:
+
+{ "text": "here you can type" }
+
+
+
+
+
 
 
