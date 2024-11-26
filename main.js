@@ -7,8 +7,8 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 const scene = new THREE.Scene();
 
 // Camera setup
-const camera = new THREE.PerspectiveCamera(15, window.innerWidth / window.innerHeight, 0.5, 1000);
-camera.position.set(0, 2, 3);
+const camera = new THREE.PerspectiveCamera(19, window.innerWidth / window.innerHeight, 0.5, 1000);
+camera.position.set(0, 0, 2);
 
 // Renderer setup
 const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -19,10 +19,10 @@ document.body.appendChild(renderer.domElement);
 const controls = new OrbitControls(camera, renderer.domElement);
 
 // Lighting setup
-const ambientLight = new THREE.AmbientLight(0xffffff, 1); // Increase intensity for better visibility
+const ambientLight = new THREE.AmbientLight(0xffffff, 1);
 scene.add(ambientLight);
 
-const directionalLight = new THREE.DirectionalLight(0xffffff, 1); // Increase intensity
+const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
 directionalLight.position.set(5, 10, 7);
 scene.add(directionalLight);
 
@@ -33,16 +33,15 @@ camera.add(listener);
 const audio = new THREE.Audio(listener);
 const audioLoader = new THREE.AudioLoader();
 
-// Load audio
-audioLoader.load('/audio.mp3', (buffer) => {
+// Load audio (use your generated MP3 file)
+audioLoader.load('audio/output.mp3', (buffer) => {
     audio.setBuffer(buffer);
-    audio.setLoop(true);
+    audio.setLoop(false);  // Set audio to play only once
     audio.setVolume(0.5);
-    audio.play();
 });
 
 // Audio analysis
-const analyser = new THREE.AudioAnalyser(audio, 256); // Frequency data resolution
+const analyser = new THREE.AudioAnalyser(audio, 256);
 
 // Model setup: Load the glTF model
 const loader = new GLTFLoader();
@@ -54,16 +53,14 @@ loader.load('/avatar_testglb.glb', (gltf) => {
     model = gltf.scene;
     model.scale.set(0.5, 0.5, 0.5); // Adjust model scale
 
-    // Position the model lower along the Y-axis
-    model.position.set(0, -0.7, 0);  // Move model lower (increase the negative Y value as needed)
+    model.position.set(0, -0.7, 0); // Move model lower (increase the negative Y value as needed)
 
-    // Search for the "Upper Lips" and "Lower Lips" meshes
     model.traverse((child) => {
         if (child.name === "Upperlips") {
-            upperLipMesh = child; // Assign the upper lip mesh
+            upperLipMesh = child;
         }
         if (child.name === "Lowerlips") {
-            lowerLipMesh = child; // Assign the lower lip mesh
+            lowerLipMesh = child;
         }
     });
 
@@ -78,36 +75,18 @@ function animate() {
     requestAnimationFrame(animate);
 
     if (upperLipMesh && lowerLipMesh && analyser) {
-        // Get frequency data
         const data = analyser.getFrequencyData();
-
-        // Calculate the average frequency
         const averageFrequency = data.reduce((sum, value) => sum + value, 0) / data.length;
 
-        // Animate the "Upper Lips" mesh based on frequency data
-        if (upperLipMesh) {
-            // Normalize frequency value to control lip movement
-            const movementAmount = Math.min(averageFrequency / 128, 1); // Normalize to range 0-1
-            upperLipMesh.position.z = movementAmount * 0.5; // Move lips up (change the multiplier for desired range)
-        }
+        const movementAmount = Math.min(averageFrequency / 128, 1);
 
-        // Animate the "Lower Lips" mesh based on frequency data
-        if (lowerLipMesh) {
-            // Normalize frequency value to control lip movement
-            const movementAmount = Math.min(averageFrequency / 128, 1); // Normalize to range 0-1
-            lowerLipMesh.position.z = -movementAmount * 0.5; // Move lips down (change the multiplier for desired range)
-        }
+        upperLipMesh.position.z = movementAmount * 0.5;
+        lowerLipMesh.position.z = -movementAmount * 0.5;
     }
 
-    // Update controls (camera movement)
     controls.update();
-
-    // Render the scene
     renderer.render(scene, camera);
 }
-
-
-animate();
 
 // Window resize handler to adjust aspect ratio and renderer size
 window.addEventListener('resize', () => {
@@ -115,3 +94,22 @@ window.addEventListener('resize', () => {
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
 });
+
+// Event listener for the "Speak" button
+const speakButton = document.getElementById('speakButton');
+speakButton.addEventListener('click', () => {
+    audio.play();
+
+    
+});
+
+const speakButtonx = document.getElementById('speakButtonx');
+speakButtonx.addEventListener('click', () => {
+    // Set a flag to indicate that the button was clicked
+    localStorage.setItem('shouldPlayAudio', 'true');
+
+    // Trigger page reload
+    location.reload();
+});
+
+animate();
