@@ -52,13 +52,10 @@ Once the server is running, you can send text to the backend to generate audio. 
 
 POST http://localhost:3000/speak
 
-Send a JSON object with the text you want to convert:
+Send a JSON object with the text you want to convert: { "text": "here you can type" }
 
-{ "text": "here you can type" }
+### 6. View the speaking model
 
+Open your browser and go to the following URL to view the 3D model with synchronized lips: http://localhost:5173/
 
-
-
-
-
-
+When you press the "Speak" button, the 3D model will begin speaking with lip synchronization based on the audio generated.
