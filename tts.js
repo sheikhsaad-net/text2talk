@@ -12,7 +12,7 @@ app.use(express.static('public'));
 app.use(bodyParser.json()); // Middleware to parse JSON request bodies
 
 // Set Google credentials path
-process.env.GOOGLE_APPLICATION_CREDENTIALS = 'auth/text2talk-442509-ca74cc14daa4.json';
+process.env.GOOGLE_APPLICATION_CREDENTIALS = 'auth/credentials.json';
 
 // Creates a client
 const client = new TextToSpeechClient();
