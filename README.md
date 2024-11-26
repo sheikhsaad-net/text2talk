@@ -27,3 +27,19 @@ git clone [https://github.com/sheikhsaad-net/text2talk.git](https://github.com/s
 Run the following command to install the required dependencies: npm install
 
 
+### 3. Set up Google Cloud API credentials
+
+To authenticate with Google Cloud's Text-to-Speech API, follow these steps:
+
+1. Go to the [Google Cloud Console](https://console.cloud.google.com/).
+2. Create a new project or use an existing one.
+3. Enable the **Text-to-Speech API**.
+4. Generate an API key and service account credentials:
+   - Navigate to **IAM & Admin** > **Service Accounts**.
+   - Create a service account and download the JSON credentials file.
+5. Place the downloaded JSON credentials file in the `auth` folder in the `public` directory of the project.
+6. In the `auth` folder, open the `credentials.json` file and update the following fields with the data from your Google Cloud service account:
+
+{ "private_key_id": "", "private_key": "", "client_email": "", "client_id": "" }
+
+
