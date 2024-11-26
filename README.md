@@ -2,6 +2,8 @@
 
 This application converts text into audio using Google's Cloud Text-to-Speech API and synchronizes a 3D model's lips to the generated speech. The application uses Three.js for 3D rendering, Blender for 3D model creation, and Node.js for backend functionality.
 
+![3D Model Screen](./public/model-screen.png)
+
 ## Features
 
 - Convert text to audio via Google Cloud's Text-to-Speech API.
