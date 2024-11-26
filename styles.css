@@ -1,0 +1,36 @@
+body { margin: 0; }
+canvas { display: block; }
+#controls {
+    position: fixed;
+    bottom: 50px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#textInput {
+    width: 300px;
+    font-size: 16px;
+    background: #000;
+    border: 1px solid #222;
+    border-radius: 20px;
+    padding: 20px 30px;
+    color: #fff;
+}
+#speakButton:hover, #speakButtonx:hover {
+    transform: scale(1.05);
+    background: #8d6042;
+    color: #fff;
+}
+#speakButton, #speakButtonx {
+    transition: 0.5s;
+    font-size: 16px;
+    margin-left: 10px;
+    cursor: pointer;
+    padding: 15px 60px;
+    border-radius: 20px;
+    border: 0;
+    background: #e6c7ae;
+    text-transform: uppercase;
+    font-weight: 700;
+}
